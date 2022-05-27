@@ -27,6 +27,7 @@ runs:
         node-version: 16      
     
     - name: Setup node packages
+      shell: bash
       run: npm install lodash yaml
 
     - name: Check for permissions
@@ -41,5 +42,7 @@ runs:
           await script({github, context, core});
           
     - name: Cleanup directory
+      shell: bash
       run: |
         rm -Rf ./gitops-config
+
