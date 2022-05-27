@@ -1,0 +1,45 @@
+name: 'Check Permissions'
+description: 'Check action permissions for a workflow'
+inputs:
+  config_repo:
+    description: 'The gitops-config repository'
+    required: true
+    default: 'gitops-config'
+  user:
+    description: 'The actor to check permissions on'
+    required: true
+  required_permission:
+    description: 'The required permission to check'
+    required: true
+    
+runs:
+  using: 'composite'
+  steps:
+    - name: Check out gitops-config
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.config_repo }}
+        path: gitops-config
+
+    - name: Setup node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16      
+    
+    - name: Setup node packages
+      run: npm install lodash yaml
+
+    - name: Check for permissions
+      uses: actions/github-script@v6
+      env:
+        USER: ${{github.actor}}
+        REQUIRED_PERMISSION: build-rc
+        WORKING_DIRECTORY: gitops-config
+      with:
+        script: |
+          const script = require('./gitops-config/checkUserPermission');
+          await script({github, context, core});
+          
+    - name: Cleanup directory
+      run: |
+        rm -Rf ./gitops-config
