@@ -43,7 +43,7 @@ runs:
         WORKING_DIRECTORY: gitops-config
       with:
         script: |
-          const script = require('./gitops-check-permissions/checkUserPermission');
+          const script = require('../gitops-check-permissions/checkUserPermission');
           await script({github, context, core});
           
     - name: Cleanup directory
