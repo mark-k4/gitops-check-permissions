@@ -15,6 +15,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Check out gitops-check-permissions
+      uses: actions/checkout@v3
+      path: svc
+
     - name: Check out gitops-config
       uses: actions/checkout@v3
       with:
@@ -30,10 +34,6 @@ runs:
       shell: bash
       run: npm install lodash yaml
 
-    - name: List current directory
-      shell: bash
-      run: pwd && ls -la gitops-config && find . -name "checkUserPermission.js"
-
     - name: Check for permissions
       uses: actions/github-script@v6
       env:
@@ -42,7 +42,7 @@ runs:
         WORKING_DIRECTORY: gitops-config
       with:
         script: |
-          const script = require('./gitops-config/checkUserPermission');
+          const script = require('./svc/checkUserPermission');
           await script({github, context, core});
           
     - name: Cleanup directory
