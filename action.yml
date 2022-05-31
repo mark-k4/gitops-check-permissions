@@ -32,8 +32,7 @@ runs:
 
     - name: List current directory
       shell: bash
-      run: pwd && ls gitops-config
-
+      run: pwd && ls -la gitops-config && find . -name "checkUserPermission.js"
 
     - name: Check for permissions
       uses: actions/github-script@v6
