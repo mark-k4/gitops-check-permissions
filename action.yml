@@ -35,6 +35,10 @@ runs:
       shell: bash
       run: npm install lodash yaml
 
+    - name: list directories
+      shell: bash
+      run: ls -la
+
     - name: Check for permissions
       uses: actions/github-script@v6
       env:
