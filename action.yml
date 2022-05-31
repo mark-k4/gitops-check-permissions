@@ -37,7 +37,7 @@ runs:
 
     - name: list directories
       shell: bash
-      run: ls -la
+      run: ls -la gitops-check-permissions
 
     - name: Check for permissions
       uses: actions/github-script@v6
