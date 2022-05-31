@@ -17,7 +17,8 @@ runs:
   steps:
     - name: Check out gitops-check-permissions
       uses: actions/checkout@v3
-      path: svc
+      with:
+        path: svc
 
     - name: Check out gitops-config
       uses: actions/checkout@v3
