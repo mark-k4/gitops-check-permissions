@@ -32,7 +32,8 @@ runs:
 
     - name: List current directory
       shell: bash
-      run: ls
+      run: pwd && ls gitops-config
+
 
     - name: Check for permissions
       uses: actions/github-script@v6
