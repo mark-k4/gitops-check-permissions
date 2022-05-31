@@ -18,7 +18,7 @@ runs:
     - name: Check out gitops-check-permissions
       uses: actions/checkout@v3
       with:
-        path: svc
+        path: gitops-check-permissions
 
     - name: Check out gitops-config
       uses: actions/checkout@v3
@@ -43,11 +43,11 @@ runs:
         WORKING_DIRECTORY: gitops-config
       with:
         script: |
-          const script = require('./svc/checkUserPermission');
+          const script = require('./gitops-check-permissions/checkUserPermission');
           await script({github, context, core});
           
     - name: Cleanup directory
       shell: bash
       run: |
-        rm -Rf ./gitops-config
+        rm -Rf ./gitops-check-permissions
 
