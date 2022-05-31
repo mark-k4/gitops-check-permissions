@@ -16,7 +16,7 @@ runs:
   using: 'composite'
   steps:
     - name: Check out gitops-config
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: ${{ inputs.config_repo }}
         path: gitops-config
@@ -29,6 +29,10 @@ runs:
     - name: Setup node packages
       shell: bash
       run: npm install lodash yaml
+
+    - name: List current directory
+      shell: bash
+      run: ls
 
     - name: Check for permissions
       uses: actions/github-script@v6
