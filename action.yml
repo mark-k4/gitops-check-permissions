@@ -5,13 +5,16 @@ inputs:
     description: 'The gitops-config repository'
     required: true
     default: 'gitops-config'
+  config_repo_token:
+    description: 'Token to checkout the gitops-config repository'
+    required: false
   user:
     description: 'The actor to check permissions on'
     required: true
   required_permission:
     description: 'The required permission to check'
     required: true
-    
+
 runs:
   using: 'composite'
   steps:
@@ -25,6 +28,7 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: ${{ inputs.config_repo }}
+        token: ${{ inputs.config_repo_token }}
         path: gitops-config
 
     - name: Setup node
