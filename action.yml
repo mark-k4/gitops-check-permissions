@@ -41,7 +41,7 @@ runs:
       uses: actions/github-script@v6
       env:
         USER: ${{ github.actor }}
-        REQUIRED_PERMISSION: $${{ inputs.required_permission }}
+        REQUIRED_PERMISSION: ${{ inputs.required_permission }}
         WORKING_DIRECTORY: gitops-config
       with:
         script: |
