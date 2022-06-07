@@ -8,9 +8,6 @@ inputs:
   config_repo_token:
     description: 'Token to checkout the gitops-config repository'
     required: false
-  user:
-    description: 'The actor to check permissions on'
-    required: true
   required_permission:
     description: 'The required permission to check'
     required: true
@@ -40,15 +37,11 @@ runs:
       shell: bash
       run: npm install lodash yaml
 
-    - name: list directories
-      shell: bash
-      run: ls -la gitops-check-permissions
-
     - name: Check for permissions
       uses: actions/github-script@v6
       env:
-        USER: ${{github.actor}}
-        REQUIRED_PERMISSION: build-rc
+        USER: ${{ github.actor }}
+        REQUIRED_PERMISSION: $${{ inputs.required_permission }}
         WORKING_DIRECTORY: gitops-config
       with:
         script: |
